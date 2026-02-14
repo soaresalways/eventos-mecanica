@@ -216,8 +216,37 @@ button:hover {
     100% { transform: translateY(0px); }
 }
 
+/* GALERIA CLUB DAS WINGS */
+
+.galeria-wings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.galeria-wings img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.galeria-wings img:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(255,255,255,0.7);
+}
+
 /* Responsivo */
-@media (max-width: 600px) {
+@media (max-width: 500px) {
+    .galeria-wings img {
+        width: 70px;
+        height: 70px;
+    }
+
     .gif-canto,
     .gif-canto-esq {
         width: 80px;
@@ -268,8 +297,6 @@ button:hover {
 
 <script>
 
-/* SEU JS ORIGINAL AQUI (mantive tudo igual) */
-
 function verificarSenha() {
     const senha = document.getElementById("senha").value;
     const erro = document.getElementById("erro");
@@ -281,7 +308,8 @@ function verificarSenha() {
             lock.style.display = "none";
         }, 800);
     } else {
-        erro.innerText = "Palavra incorreta!";
+        // Mensagem divertida
+        erro.innerText = "Errou a senha seu bobão 😜";
     }
 }
 
@@ -306,10 +334,24 @@ function abrirTela(tipo) {
     }
 
     if (tipo === "wings") {
-        texto.innerHTML = `
-            <h3>Club das Wings ✨</h3>
-            <img src="wings.jpg" style="width:100%; border-radius:15px; margin-top:10px;">
-        `;
+        const imagensWings = [
+            "wings1.jpg",
+            "wings2.jpg",
+            "wings3.jpg"
+            // adicione mais imagens aqui
+        ];
+
+        // Galeria com clique para imagem maior
+        let galeriaHTML = `<h3>Club das Wings ✨</h3>
+            <img src="${imagensWings[0]}" id="wingsGrande" style="width:100%; border-radius:15px; margin-top:10px;">
+            <div class="galeria-wings">`;
+
+        imagensWings.forEach(src => {
+            galeriaHTML += `<img src="${src}" alt="Wing Image" onclick="document.getElementById('wingsGrande').src='${src}'">`;
+        });
+
+        galeriaHTML += `</div>`;
+        texto.innerHTML = galeriaHTML;
     }
 
     if (tipo === "especial") {
